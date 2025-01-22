@@ -20,7 +20,7 @@ export function ConceptGrid() {
         const data = await fetchConcepts(currentPage)
         setConcepts(data.data) 
         setTotalPages(Math.ceil(data.meta.pagination.total / data.meta.pagination.pageSize))
-      } catch (err) {
+      } catch {
         setError("Failed to load concepts. Please try again later.")
       } finally {
         setIsLoading(false)

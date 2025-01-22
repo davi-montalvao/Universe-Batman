@@ -20,7 +20,7 @@ export function StorylineGrid() {
         const data = await fetchStorylines(currentPage)
         setStorylines(data?.data) 
         setTotalPages(Math.ceil(data.meta.pagination.total / data.meta.pagination.pageSize)) 
-      } catch (err) {
+      } catch {
         setError("Failed to load storylines. Please try again later.")
       } finally {
         setIsLoading(false)

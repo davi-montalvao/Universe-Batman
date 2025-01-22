@@ -31,7 +31,7 @@ export function LocationGrid() {
         } else {
           throw new Error("Invalid API response: missing meta or pagination data.")
         }
-      } catch (err) {
+      } catch {
         setError("Failed to load locations. Please try again later.")
       } finally {
         setIsLoading(false)
