@@ -9,8 +9,9 @@ interface PaginationProps {
 }
 
 export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  
   return (
-    <div className="flex items-center justify-center space-x-2 mt-8">
+    <div className="flex items-center justify-center space-x-2 mt-8 pb-4">
       <Button
         variant="outline"
         size="icon"
@@ -32,7 +33,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
       >
         <ChevronRight className="h-4 w-4" />
       </Button>
-    </div>
+    </div>  
   )
 }
 

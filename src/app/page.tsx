@@ -15,7 +15,6 @@ export default function Home() {
     setMenuOpen(!menuOpen);
   };
 
-  // Função para detectar rolagem
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 200) {
@@ -27,11 +26,9 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Limpar o evento ao desmontar
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Função para voltar ao topo
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -119,16 +116,18 @@ export default function Home() {
           </section>
         </div>
       </main>
-
       {showButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-8 md:bottom-8 bg-yellow-500/80 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 transition"
+          className="fixed bottom-20 right-8 md:bottom-24 bg-yellow-500/80 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 transition"
           aria-label="Back to Top"
         >
           ↑
         </button>
       )}
+      <div className="fixed bottom-0 left-0 right-0 text-center py-4 md:py-5 bg-black z-50 text-white text-sm md:text-base px-4">
+        Copyright © 2025 | Made with love and persistence 🤍💪🏽
+      </div>
     </div>
   );
 }
