@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["sjc.microlink.io"], // Substitua por seus domínios externos permitidos
+  },
+  // Outras configurações podem ser adicionadas aqui
 };
 
 export default nextConfig;

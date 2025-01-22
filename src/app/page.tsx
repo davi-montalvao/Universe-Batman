@@ -1,101 +1,134 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
+import { Hero } from "@/components/hero";
+import { CharacterGrid } from "@/components/character-grid";
+import { LocationGrid } from "@/components/location-grid";
+import { ConceptGrid } from "@/components/concept-grid";
+import { StorylineGrid } from "@/components/storylineGrid";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  // Função para detectar rolagem
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Limpar o evento ao desmontar
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Função para voltar ao topo
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <div>
+      <header className="fixed top-0 w-full bg-[#121214]/80 backdrop-blur-sm z-50">
+        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+          <span className="text-xl font-bold">Batman Universe</span>
+
+           <div className="flex items-center md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-slate-400 hover:text-slate-50 focus:outline-none"
+            >
+              {menuOpen ? (
+                <span className="text-2xl">✖</span>
+              ) : (
+                <span className="text-2xl">☰</span>
+              )}
+            </button>
+          </div>
+
+
+          <div
+            className={`${
+              menuOpen ? "block" : "hidden"
+            } absolute top-16 left-0 w-full bg-[#121214]/90 md:static md:flex md:w-auto md:gap-8 md:bg-transparent md:block px-4 py-6 md:py-0`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <a
+              href="#characters"
+              className="block text-sm text-slate-400 hover:text-yellow-500 mb-2 md:mb-0"
+            >
+              Characters
+            </a>
+            <a
+              href="#locations"
+              className="block text-sm text-slate-400 hover:text-yellow-500 mb-2 md:mb-0"
+            >
+              Locations
+            </a>
+            <a
+              href="#concepts"
+              className="block text-sm text-slate-400 hover:text-yellow-500 mb-2 md:mb-0"
+            >
+              Concepts
+            </a>
+            <a
+              href="#storyline"
+              className="block text-sm text-slate-400 hover:text-yellow-500"
+            >
+              Storyline
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      <main className="pt-16">
+        <Hero />
+        <div className="container mx-auto px-4 py-16 space-y-16">
+          <section id="characters">
+            <h2 className="text-3xl font-bold mb-8 text-yellow-500">
+              Featured Characters
+            </h2>
+            <CharacterGrid />
+          </section>
+          <section id="locations">
+            <h2 className="text-3xl font-bold mb-8 text-yellow-500">
+              Iconic Locations
+            </h2>
+            <LocationGrid />
+          </section>
+          <section id="concepts">
+            <h2 className="text-3xl font-bold mb-8 text-yellow-500">Concepts</h2>
+            <ConceptGrid />
+          </section>
+          <section id="storyline">
+            <h2 className="text-3xl font-bold mb-8 text-yellow-500">
+              Storyline
+            </h2>
+            <StorylineGrid />
+          </section>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+      {showButton && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-4 right-8 md:bottom-8 bg-yellow-500/80 text-white p-3 rounded-full shadow-lg hover:bg-yellow-500 transition"
+          aria-label="Back to Top"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          ↑
+        </button>
+      )}
     </div>
   );
 }
